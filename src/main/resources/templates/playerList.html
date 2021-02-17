@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Rugby Players List</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Rugby Players List</h1>
+  
+      
+      <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>NOMBRE</th>
+          <th>APELLIDO</th>
+          <th>POSICION</th>
+          <th>EDAD</th>
+          <th>EDITAR</th>
+          <th>ELIMINAR</th>
+        </tr>
+        </thead>
+        <div th:each="Player : ${lista}">
+        <span th:if="${Player.id} == ${id}">
+          <tr>
+            <form action="updatePlayer" method="POST" >
+            <td><input type="number" id="fid" name="id" required= true th:value=${Player.id} readonly style="width:40px"></td>
+            <td><input type="text" id="fname" name="name" th:value=${Player.name} ></td>
+            <td><input type="text" id="flastname" name="lastName" th:value=${Player.lastName} ></td>
+            <td><input type="text" id="fposition" name="position" th:value=${Player.position} ></td>
+            <td> <input type="number" id="fage" name="age" th:value=${Player.age}></td>
+            <td>
+              <input type="submit" class="btn btn-success" value="Confirm">
+              </form></td>
+            <td><form action="delPlayer" method="POST" >
+              <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
+              <input type="submit" class="btn btn-danger" value="Delete">
+              </form></td>
+          
+          </tr>
+        </span>
+
+        <span th:unless="${Player.id} == ${id}">
+          <tr>
+          <td th:text="${Player.id}"</td>
+          <td th:text="${Player.name}"</td>
+          <td th:text="${Player.lastName}"></td>
+          <td th:text="${Player.position}"></td>
+          <td th:text="${Player.age}"></td>
+          <td>    
+            <form action="editPlayer" method="POST" >
+            <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
+            <input type="submit" class="btn btn-success" value="Edit">
+            </form>
+          </td>  
+          <td>    
+            <form action="delPlayer" method="POST" >
+            <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
+            <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+          </td>  
+        </tr>
+      </span>
+        
+      </table>
+    
+    </div>
+
+    <div class="container">
+      <p> </p>
+      <p> </p>
+      <h2>Agregar Player</h2>
+      <p> </p>
+      <p> </p>
+      <form action="addPlayer" method="POST" >
+    
+        <label for="fid">Id</label>
+        <input type="number" id="fid" name="id" required= true>
+        <label for="fname">Name</label>
+        <input type="text" id="fid" name="name" required= true>
+        <label for="flastname">Last Name</label>
+        <input type="text" id="flastname" name="lastName" required= true>
+        <label for="fposition">Position</label>
+        <input type="text" id="fpositino" name="position" required= true>
+        <label for="fage">Age</label>
+        <input type="number" id="fage" name="age" required= true>
+  
+  
+        <input type="submit" value="Add Player" class="btn btn-primary">
+    
+      </form>
+    </div>
+  
+    <div class = "container">
+      <p>  </p>
+      <p>  </p>
+      <p>  </p>
+    </div>
+
+    
+
+
+</body>
+</html>
