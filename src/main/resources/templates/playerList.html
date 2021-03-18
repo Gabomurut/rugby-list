@@ -12,11 +12,13 @@
       <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
-          <th>ID</th>
-          <th>NOMBRE</th>
-          <th>APELLIDO</th>
-          <th>POSICION</th>
-          <th>EDAD</th>
+          <form action="sortPlayer" method="POST">
+          <th>ID<INPUT TYPE="Radio" id="sort" th:checked="${sort5}" Name="sort" th:value=5 onchange="this.form.submit()" selected="true"></th>          
+          <th>NOMBRE<INPUT TYPE="Radio" id="sort" th:checked="${sort1}" Name="sort" th:value=1 onchange="this.form.submit()"></th>
+          <th>APELLIDO <INPUT TYPE="Radio" Name="sort" th:checked="${sort2}" th:value=2 onchange="this.form.submit()"></th></th>
+          <th>POSICION <INPUT TYPE="Radio" Name="sort" th:checked="${sort3}" th:value=3 onchange="this.form.submit()"></th></th>
+          <th>EDAD <INPUT TYPE="Radio" Name="sort" th:checked="${sort4}" th:value=4 onchange="this.form.submit()"></th></th>
+          </form>
           <th>EDITAR</th>
           <th>ELIMINAR</th>
         </tr>
@@ -25,7 +27,7 @@
         <span th:if="${Player.id} == ${id}">
           <tr>
             <form action="updatePlayer" method="POST" >
-            <td><input type="number" id="fid" name="id" required= true th:value=${Player.id} readonly style="width:40px"></td>
+            <td><input type="number" id="fid" name="id" th:value=${Player.id} readonly style="width:40px"></td>
             <td><input type="text" id="fname" name="name" th:value=${Player.name} ></td>
             <td><input type="text" id="flastname" name="lastName" th:value=${Player.lastName} ></td>
             <td><input type="text" id="fposition" name="position" th:value=${Player.position} ></td>
@@ -75,8 +77,7 @@
       <p> </p>
       <form action="addPlayer" method="POST" >
     
-        <label for="fid">Id</label>
-        <input type="number" id="fid" name="id" required= true>
+        <input type="number" id="fid" name="id"value=1 hidden>
         <label for="fname">Name</label>
         <input type="text" id="fid" name="name" required= true>
         <label for="flastname">Last Name</label>
