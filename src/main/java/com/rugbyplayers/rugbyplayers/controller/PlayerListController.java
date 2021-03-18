@@ -1,19 +1,12 @@
 package com.rugbyplayers.rugbyplayers.controller;
 
-import javax.persistence.OrderBy;
-
 import com.rugbyplayers.rugbyplayers.RugbyPlayer;
 import com.rugbyplayers.rugbyplayers.RugbyPlayerRepository;
-
-import org.aspectj.weaver.loadtime.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
