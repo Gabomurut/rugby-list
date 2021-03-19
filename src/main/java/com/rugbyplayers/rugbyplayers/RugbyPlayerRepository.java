@@ -12,5 +12,7 @@ public interface RugbyPlayerRepository extends CrudRepository <RugbyPlayer, Inte
     List<RugbyPlayer> findAllByOrderByAge();
     List<RugbyPlayer> findAllByOrderByPosition();
     List<RugbyPlayer> findAllByOrderById();
+
+    
 }
 

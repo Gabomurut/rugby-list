@@ -6,8 +6,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Rugby Players List</h1>
-  
+  <table class="table-condensed">
+    <th><h1 th:inline="text">Rugby Players  - Bienvenido [[${#httpServletRequest.remoteUser}]]</h1></th>  
+    <th><form th:action="@{/logout}" method="post">
+      <input type="submit" value="Logout" class="btn btn-danger"/> 
+     </form></th>
+  </table>
       
       <table class="table table-hover">
         <thead class="thead-dark">
@@ -95,6 +99,8 @@
   
     <div class = "container">
       <p>  </p>
+
+
       <p>  </p>
       <p>  </p>
     </div>

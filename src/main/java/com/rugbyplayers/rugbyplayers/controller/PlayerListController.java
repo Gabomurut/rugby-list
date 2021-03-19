@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 public class PlayerListController {
 	@Autowired
@@ -58,6 +59,8 @@ public class PlayerListController {
 		modelAndView.addObject("lista", rugbyPlayerRepository.findAll());
 		return modelAndView;
 	}
+		
+
 
 
 	@PostMapping("/sortPlayer")
