@@ -74,7 +74,7 @@ public class PlayerListController {
 
 	
 
-	@PutMapping("/playerlist")
+	@PutMapping("/playerlist/{id}")
 	public ModelAndView updatePlayer(@ModelAttribute RugbyPlayer rugbyPlayer) {
 		ModelAndView modelAndView = new ModelAndView("playerList");
 		rugbyPlayerRepository.save(rugbyPlayer);

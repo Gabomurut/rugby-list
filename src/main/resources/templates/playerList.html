@@ -111,9 +111,9 @@
     <script> 
       function makePUTrequest(id, name, lastName, position, age) { 
           $.ajax({ 
-              url: 'http://localhost:8080/playerlist/', 
+              url: 'http://localhost:8080/playerlist/' + id, 
               type: 'PUT', 
-              data:  {      id: id,
+              data:  {      
                             name: name,
                             lastName: lastName,
                             position: position,
