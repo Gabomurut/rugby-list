@@ -1,4 +1,4 @@
-package com.rugbyplayers.rugbyplayers;
+/*package com.rugbyplayers.rugbyplayers;
 
 import javax.sql.DataSource;
 
@@ -48,3 +48,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
+*/

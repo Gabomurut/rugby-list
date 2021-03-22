@@ -8,7 +8,8 @@
 <body>
     <h1>Rugby Players List</h1>
     <div class="container">
-    <form action="/playerlist">
+    <form method="GET" action="/playerlist">
+      <input type="text" id="sortBy" name="sortBy" value="id" hidden >
       <input type="submit" value="IR AL PANEL DE CONTROL" class="btn-primary" />
     </form>
     </div>

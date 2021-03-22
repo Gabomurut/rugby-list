@@ -4,7 +4,9 @@
     <title>Rugby Players List</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-</head>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
+      </script> 
+  </head>
 <body>
   <table class="table-condensed">
     <th><h1 th:inline="text">Rugby Players  - Bienvenido [[${#httpServletRequest.remoteUser}]]</h1></th>  
@@ -16,12 +18,12 @@
       <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
-          <form action="sortPlayer" method="POST">
-          <th>ID<INPUT TYPE="Radio" id="sort" th:checked="${sort5}" Name="sort" th:value=5 onchange="this.form.submit()" selected="true"></th>          
-          <th>NOMBRE<INPUT TYPE="Radio" id="sort" th:checked="${sort1}" Name="sort" th:value=1 onchange="this.form.submit()"></th>
-          <th>APELLIDO <INPUT TYPE="Radio" Name="sort" th:checked="${sort2}" th:value=2 onchange="this.form.submit()"></th></th>
-          <th>POSICION <INPUT TYPE="Radio" Name="sort" th:checked="${sort3}" th:value=3 onchange="this.form.submit()"></th></th>
-          <th>EDAD <INPUT TYPE="Radio" Name="sort" th:checked="${sort4}" th:value=4 onchange="this.form.submit()"></th></th>
+          <form action="/playerlist" method="GET">
+          <th>ID<INPUT TYPE="Radio" id="sortBy" th:checked="${checked1}" Name="sortBy" th:value="id" onchange="this.form.submit()" selected="true"></th>          
+          <th>NOMBRE<INPUT TYPE="Radio" id="sort" th:checked="${checked2}" Name="sortBy" th:value="name" onchange="this.form.submit()"></th>
+          <th>APELLIDO <INPUT TYPE="Radio" Name="sortBy" th:checked="${checked3}" th:value="lastName" onchange="this.form.submit()"></th></th>
+          <th>POSICION <INPUT TYPE="Radio" Name="sortBy" th:checked="${checked4}" th:value="position" onchange="this.form.submit()"></th></th>
+          <th>EDAD <INPUT TYPE="Radio" Name="sortBy" th:checked="${checked5}" th:value="age" onchange="this.form.submit()"></th></th>
           </form>
           <th>EDITAR</th>
           <th>ELIMINAR</th>
@@ -30,19 +32,16 @@
         <div th:each="Player : ${lista}">
         <span th:if="${Player.id} == ${id}">
           <tr>
-            <form action="updatePlayer" method="POST" >
+            <form action="playerlist" method="POST" >
             <td><input type="number" id="fid" name="id" th:value=${Player.id} readonly style="width:40px"></td>
             <td><input type="text" id="fname" name="name" th:value=${Player.name} ></td>
             <td><input type="text" id="flastname" name="lastName" th:value=${Player.lastName} ></td>
             <td><input type="text" id="fposition" name="position" th:value=${Player.position} ></td>
             <td> <input type="number" id="fage" name="age" th:value=${Player.age}></td>
             <td>
-              <input type="submit" class="btn btn-success" value="Confirm">
+              <input type="submit" class="btn btn-success" value="Confirm" th:onclick="|makePUTrequest('${Player.id}')|">
               </form></td>
-            <td><form action="delPlayer" method="POST" >
-              <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
-              <input type="submit" class="btn btn-danger" value="Delete">
-              </form></td>
+            <td><input type="submit" class="btn btn-danger" value="Delete" th:onclick="|makeDELETErequest('${Player.id}')|"></td>
           
           </tr>
         </span>
@@ -55,16 +54,20 @@
           <td th:text="${Player.position}"></td>
           <td th:text="${Player.age}"></td>
           <td>    
-            <form action="editPlayer" method="POST" >
+            <form action="/editPlayer" method="POST" >
             <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
+            <input type="text" id="fname" name="name" th:value="${Player.name}" hidden>
+            <input type="text" id="flastname" name="lastName" th:value="${Player.lastName}" hidden>
+            <input type="text" id="fposition" name="position" th:value="${Player.position}" hidden>
+            <input type="number" id="fage" name="age" th:value="${Player.age}" hidden>
             <input type="submit" class="btn btn-success" value="Edit">
             </form>
           </td>  
           <td>    
-            <form action="delPlayer" method="POST" >
-            <input type="number" id="fid" name="id" th:value="${Player.id}" hidden>
-            <input type="submit" class="btn btn-danger" value="Delete">
-            </form>
+            
+            
+            <input type="submit" class="btn btn-danger" value="Delete" th:onclick="|makeDELETErequest('${Player.id}')|">
+          
           </td>  
         </tr>
       </span>
@@ -79,7 +82,7 @@
       <h2>Agregar Player</h2>
       <p> </p>
       <p> </p>
-      <form action="addPlayer" method="POST" >
+      <form action="playerlist" method="POST" >
     
         <input type="number" id="fid" name="id"value=1 hidden>
         <label for="fname">Name</label>
@@ -105,7 +108,34 @@
       <p>  </p>
     </div>
 
-    
+    <script> 
+      function makePUTrequest(id, name, lastName, position, age) { 
+          $.ajax({ 
+              url: 'http://localhost:8080/playerlist/', 
+              type: 'PUT', 
+              data:  {      id: id,
+                            name: name,
+                            lastName: lastName,
+                            position: position,
+                            age: age
+              },
+              success: function (result) { 
+                  location.href('http://localhost:8080/playerlist?sortBy=id'); 
+              } 
+          }); 
+      } 
+     
+      function makeDELETErequest(id) { 
+         console.log("Resultado a ID", id);
+          $.ajax({ 
+              url: 'http://localhost:8080/playerlist/'+ id, 
+              type: 'DELETE', 
+              success: function (result) { 
+                  location.reload(true); 
+              } 
+          }); 
+      } 
+  </script> 
 
 
 </body>
